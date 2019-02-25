@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.persistence.LoginMapper">
+
+	<cache/>
+
+	<select id="getUsers" parameterType="users" resultType="users">
+		select * from users where name=#{name} and password=#{password} 
+	</select>
+	
+	<select id="showPassByNa" parameterType="users" resultType="users">
+		select password from users where name=#{name}
+	</select>
+	
+	<select id="getReaderName" parameterType="reader" resultType="reader">
+		select reader.name from users , reader where reader.readerid = #{users.name} 
+	</select>
+	
+	<select id="updatePassword" parameterType="users" resultType="users">
+		update users set password=#{password} where name=#{name} 
+	</select>
+	
+	<select id="" parameterType="" resultType=""></select>
+	
+</mapper>

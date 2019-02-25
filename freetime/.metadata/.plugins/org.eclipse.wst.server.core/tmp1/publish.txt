@@ -1,0 +1,4 @@
+#Tomcat publish data
+#Mon Feb 11 22:14:31 CST 2019
+org.eclipse.jst.jee.server\:free=F\:\\spring(sts)\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\free
+org.eclipse.jst.jee.server\:/binary\:C\:\\Users\\27998\\.m2\\repository\\org\\springframework\\spring-web\\3.2.3.RELEASE\\spring-web-3.2.3.RELEASE.jar=F\:\\spring(sts)\\sts-bundle\\pivotal-tc-server\\instances\\base-instance\\wtpwebapps\\free\\WEB-INF\\lib\\spring-web-3.2.3.RELEASE.jar

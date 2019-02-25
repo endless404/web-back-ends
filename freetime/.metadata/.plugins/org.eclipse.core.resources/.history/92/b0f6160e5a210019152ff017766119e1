@@ -1,0 +1,39 @@
+package com.web.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.web.dao.books;
+import com.web.service.BookService;
+
+@Controller
+public class BookController {
+
+	@Autowired
+	private BookService bookService;
+	
+	@RequestMapping(value="findBook",method=RequestMethod.POST)
+	public ModelAndView findBook(books book,HttpSession session) {
+		if(session.getAttribute("bookname") == null) {
+			String alert = "搜索内容不能为空";
+		}
+		ModelAndView mv = new ModelAndView("book");
+		List<books> bookList = bookService.findBookByName(book);
+		int ha = bookList.get(0).getPricture();
+		if(ha == 0) {
+			String alert = "图书馆已没有该图书，无法借阅";
+			session.setAttribute("alert", alert);
+		}else {
+			session.removeAttribute("alert");
+		}
+		session.setAttribute("bookList", bookList);
+		return mv;
+	}
+}

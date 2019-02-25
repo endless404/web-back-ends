@@ -1,0 +1,41 @@
+package com.web.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.web.dao.reader;
+import com.web.dao.users;
+import com.web.persistence.LoginMapper;
+
+@Service
+public class LoginService {
+
+	@Autowired
+	private LoginMapper loginMapper;
+	
+	public users getUsers(users users) {
+		
+		return loginMapper.getUsers(users);
+	}
+
+	public String showPassByNa(String name) {
+		
+		return loginMapper.showPassByNa(name);
+	}
+
+	public reader getReaderName() {
+
+		return loginMapper.getReaderName();
+	}
+
+	public users updatePassword(users user) {
+		
+		return loginMapper.updatePassword(user);
+	}
+
+	public users getName(users user) {
+
+		return loginMapper.getName(user);
+	}
+
+}

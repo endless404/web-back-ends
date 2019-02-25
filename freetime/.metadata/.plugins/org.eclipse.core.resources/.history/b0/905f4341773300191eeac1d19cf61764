@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.persistence.BookMapper">
+
+	<cache/>
+
+	<select id="findBookByName" parameterType="books" resultType="books">
+		select * from book where bookname=#{bookname} 
+	</select>
+	
+	<select id="findByBook" parameterType="books" resultType="books">
+		select * from book where bookname=#{bookname} 
+	</select>
+	
+	<select id="findBookBy" parameterType="books" resultType="books">
+		select * from book where id=#{id} 
+	</select>
+	
+	 
+	<select id="addBook" parameterType="books">
+		INSERT INTO book (id,bookname,author,unitprice,pricture) VALUES (#{id},#{bookname},#{author},#{unitprice},#{pricture})
+	</select>
+	
+	<select id="changeBook" parameterType="books">
+		update book set unitprice=#{unitprice} , pricture=#{pricture} where id=#{id} 
+	</select>
+	
+</mapper>

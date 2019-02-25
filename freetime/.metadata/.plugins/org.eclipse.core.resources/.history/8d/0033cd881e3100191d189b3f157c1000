@@ -1,0 +1,19 @@
+package com.web.persistence;
+
+import org.springframework.stereotype.Repository;
+
+import com.web.dao.reader;
+import com.web.dao.users;
+
+@Repository
+public interface LoginMapper {
+
+	users getUsers(users users);
+
+	String showPassByNa(String name);
+
+	reader getReaderName();
+
+	users updatePassword(users users);
+
+}

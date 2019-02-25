@@ -1,0 +1,63 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    	<%@ page isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>图书管理系统</title>
+	<meta charset="utf-8">
+<%@include file="/WEB-INF/view/quote.jsp" %> 
+</head>
+<body>
+<%@include file="/WEB-INF/view/nav.jsp" %>
+<div class="container show">
+    <div class="show_main">
+      <h3 class="title">书籍信息修改</h3>
+      <div class="sreach">
+        <form action="findidBook" method="post">
+				<input type="text" placeholder="请输入图书名字" name = "bookname" >
+				<input type="submit" value="搜索" id="enter">
+		</form>
+      </div>
+      
+        <table class="table table-condensed table-hover table-bordered">
+          <!-- On rows -->
+          <!-- On cells (`td` or `th`) -->
+          <tr>
+            <th class="success">图书编号</th>
+            <th class="success">图书名字</th>
+            <th class="success">图书作者</th>
+            <th class="success">图书价格</th>
+            <th class="success">库存</th>
+            <th class="success">图书操作</th>
+          </tr>
+          <c:forEach items="${bookList}" var="book">
+          <form action="changeBook" method="post">
+          	<tr>
+	            <td><input style="border:0px ;background-color:transparent" type="text" name="id" readonly="readonly" value="${book.id}"> 
+	            </td>
+	            <td><input style="border:0px ;background-color:transparent" type="text" name="bookname" readonly="readonly" value="${book.bookname}">
+	            </td>
+	            <td><input style="border:0px ;background-color:transparent" type="text" name="author" readonly="readonly"  value="${book.author}"> 
+	            </td>
+	            <td>￥<input type="text" name="unitprice" value="${book.unitprice}"> 
+	            </td>
+	            <td><input type="text" name="pricture" value="${book.pricture}"> 
+	            </td>
+	            <td>
+	            <div>
+	            <button  type="submit" class="btn btn-primary pull-right">修改</button> 
+	            <button style="margin-left: 20px;" onclick="location.href='deleteBook?id=${book.id}'" class="btn btn-primary pull-right">删除</button>       
+	            </div>
+	            </td>
+	          </tr>
+	          <p>${alert}</p>
+          </form>
+          </c:forEach>
+          </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+package com.web.controller;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.web.dao.reader;
+import com.web.dao.users;
+import com.web.service.LoginService;
+
+@Controller
+public class LoginController {
+
+	@Autowired
+	private LoginService loginService;
+	
+	@RequestMapping(value="login",method=RequestMethod.POST)
+	public ModelAndView login(users users,HttpSession session) {
+		ModelAndView mv;
+		users user = loginService.getUsers(users);
+//		session.setAttribute("user", user);
+		if(user != null) {
+		String na = user.getName();
+//		String pa = user.getPassword();&& pa.equals("123456")
+			if(na.equals("root")) {
+				mv = new ModelAndView("bookindex");
+			}else {
+				reader read = loginService.getReaderName();
+				session.setAttribute("read", read);
+				mv = new ModelAndView("user_login");
+			}
+		}else {
+			mv = new ModelAndView("error");
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value="loginout")
+	public ModelAndView loginout(HttpSession session) {
+//		session.removeAttribute("user");
+//		session.removeAttribute("read");
+		session.invalidate();
+		ModelAndView mv = new ModelAndView("../../index");
+		return mv;
+	}
+
+	@RequestMapping(value="showPass",method=RequestMethod.GET)
+	public ModelAndView showpass(String name,HttpSession session) {
+		String na = (String) session.getAttribute(name);
+		if(na.equals("root")) {
+			String pass = loginService.showPassByNa(name);
+			return new ModelAndView("forget","password",pass);
+		}else {
+			return new ModelAndView("error");
+		}
+	}
+	
+//	@RequestMapping(value="updatePwd",method=RequestMethod.POST)
+//	public ModelAndView updatePwd(users users,HttpSession session) {
+//		ModelAndView mv = null;
+//		users = loginService.updatePassword(users);
+//		System.out.println(session.getAttribute("checkpwd"));
+//		if(session.getAttribute("checkpwd") == null) {
+//			String word = "密码不能为空";
+//			session.setAttribute("word", word);
+//			mv = new ModelAndView("updatePwd");
+//		}else {
+//			mv = new ModelAndView("upSuccess");			
+//		}
+//		return mv;
+//	}
+	
+	@RequestMapping(value="updatePwd",method=RequestMethod.POST)
+	public ModelAndView updatePwd(users users,@RequestParam("name")String name,@RequestParam("password")String password,HttpSession session) {
+		ModelAndView mv = null;
+		if(name.length() == 0 && password.length() == 0) {
+			session.setAttribute("word", "用户名或密码不能为空！");
+		}else {
+			users = loginService.updatePassword(users);
+			if(users != null) {
+				session.invalidate();
+				mv = new ModelAndView("upSuccess");	
+			}
+
+		return mv;
+	}
+}

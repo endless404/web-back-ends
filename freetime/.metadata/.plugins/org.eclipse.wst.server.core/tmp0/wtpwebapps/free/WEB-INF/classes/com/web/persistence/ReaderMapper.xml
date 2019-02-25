@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.web.persistence.ReaderMapper">
+	
+	<cache/>
+	
+	<select id="findReader" parameterType="reader" resultType="reader">
+		select * from reader where name=#{name} 
+	</select>
+	
+	<select id="findIdByReader" parameterType="reader" resultType="reader">
+		select * from reader where readerid=#{readerid} 
+	</select>
+	
+	<select id="addReader" parameterType="reader">
+		insert into reader (readerid,name,age,sex,phone) values (#{readerid},#{name},#{age},#{sex},#{phone}) 
+	</select>
+	
+	<select id="addUser" parameterType="reader">
+		insert into users (name,password) values (#{readerid},"000000") 
+	</select>
+	
+</mapper>
